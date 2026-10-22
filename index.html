@@ -30,4 +30,29 @@
 <section class="slide dark" data-title="Closing" id="page-10"><div class="sun"></div><div class="eyebrow">10 / Closing · SundaySuds Growth Strategy</div><div style="position:relative;z-index:1;margin-top:30px"><div class="end-title">Discover.<br>Convert.<br>Grow.</div><p class="end-korean">경쟁 브랜드의 관심 고객을,<br>선데이서즈의 구매 고객으로.</p><p class="intro" style="max-width:650px">맞춤 타게팅으로 고객을 발견하고, 전환 설계로 구매를 완성하며,<br>지속적인 성과 검증으로 새로운 매출 기회를 만듭니다.</p></div><div style="margin-top:auto;font-family:var(--serif);font-size:28px;font-style:italic;color:#e6e8ff">Slow Laundry Like Sunday.</div><div class="footer"><span>SUNDAYSUDS · NAVER GFA GROWTH PROPOSAL</span><span class="pageNo">10 / 10</span></div></section>
 </main><nav class="nav-bottom"><button onclick="move(-1)" aria-label="이전">←</button><span id="counter">01 / 10</span><button onclick="move(1)" aria-label="다음">→</button></nav><script>
 const slides=[...document.querySelectorAll('.slide')];let current=0;const toc=document.querySelector('#toc'),counter=document.querySelector('#counter');document.querySelector('#tocList').innerHTML=slides.map((s,i)=>`<div class="toc-item" data-to="${i}">${String(i+1).padStart(2,'0')} &nbsp; ${s.dataset.title}</div>`).join('');document.querySelectorAll('.toc-item').forEach(el=>el.addEventListener('click',()=>{show(+el.dataset.to);toggleToc(false)}));document.querySelector('#tocBtn').addEventListener('click',()=>toggleToc());function toggleToc(value){toc.classList.toggle('open',typeof value==='boolean'?value:!toc.classList.contains('open'))}function show(i){current=Math.max(0,Math.min(slides.length-1,i));slides.forEach((s,j)=>s.classList.toggle('active',j===current));counter.textContent=`${String(current+1).padStart(2,'0')} / ${slides.length}`;history.replaceState(null,'',`#page-${current+1}`);window.scrollTo({top:0,behavior:'instant'})}function move(v){show(current+v)}document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();move(1)}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();move(-1)}if(e.key==='Escape')toggleToc(false)});window.addEventListener('hashchange',()=>{const m=location.hash.match(/page-(\d+)/);if(m)show(Number(m[1])-1)});const initial=location.hash.match(/page-(\d+)/);show(initial?Number(initial[1])-1:0);
+// Wheel / trackpad slide navigation. Threshold and cooldown avoid skipping slides.
+let wheelTotal=0, wheelLastDirection=0, wheelLockedUntil=0;
+window.addEventListener('wheel',function(e){
+  if(e.ctrlKey || toc.classList.contains('open')) return;
+  const direction=Math.sign(e.deltaY);
+  if(!direction) return;
+  // On compact layouts, let the user scroll through tall slide content first.
+  const slide=slides[current];
+  const compact=window.matchMedia('(max-width:850px)').matches;
+  if(compact){
+    const canScroll=slide.scrollHeight > window.innerHeight - 160;
+    if(canScroll) return;
+  }
+  e.preventDefault();
+  if(Date.now()<wheelLockedUntil) return;
+  if(direction!==wheelLastDirection) wheelTotal=0;
+  wheelLastDirection=direction;
+  wheelTotal+=Math.abs(e.deltaY)*(e.deltaMode===1?16:e.deltaMode===2?window.innerHeight:1);
+  if(wheelTotal>=65){
+    wheelTotal=0;
+    wheelLockedUntil=Date.now()+750;
+    move(direction);
+  }
+},{passive:false});
+
 </script></body></html>
