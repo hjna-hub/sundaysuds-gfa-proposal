@@ -14,6 +14,23 @@
 #page-4 .card h3{color:#5b57ba}
 #page-4 .card p{color:#666b96}
 #page-4 .card .label{color:#7772e8}
+
+/* Content-safe layouts: keep pages 5, 7, and 8 clear of their footers. */
+#page-5,#page-7,#page-8{aspect-ratio:auto;height:auto;min-height:740px;padding-bottom:30px}
+#page-5 .footer,#page-7 .footer,#page-8 .footer{position:relative;left:auto;right:auto;bottom:auto;flex-shrink:0;margin-top:auto;padding-top:13px}
+#page-5 .slide-head,#page-7 .slide-head,#page-8 .slide-head{margin-bottom:24px}
+#page-5 .grid2 .card{padding:26px 30px!important}
+#page-5 .callout{margin-top:14px;margin-bottom:22px;padding:14px 22px}
+#page-7 .flow{margin:12px 0 18px}
+#page-7 .flow .item{padding:17px 15px}
+#page-7 .grid2 .card{padding:19px 25px;min-height:135px}
+#page-8 .mini-visual{height:125px}
+#page-8 .grid3 .card{padding:18px 22px;min-height:0}
+#page-8 .grid3 .card h3{margin:12px 0 6px}
+#page-8 .grid3 .card .rule{margin:16px 0}
+#page-8 .note{margin-top:10px;margin-bottom:20px}
+@media(max-width:850px){#page-5,#page-7,#page-8{min-height:calc(100dvh - 160px)}#page-5 .footer,#page-7 .footer,#page-8 .footer{margin-top:30px}}
+@media print{#page-5,#page-7,#page-8{height:100vh;min-height:0;padding-bottom:30px}#page-5 .footer,#page-7 .footer,#page-8 .footer{margin-top:auto}}
 </style></head><body>
 <header><div class="brand">SundaySuds <small>GROWTH PROPOSAL / 2026</small></div><div class="controls"><span class="topnav">NAVER GFA · STRATEGIC PROPOSAL</span><button class="btn" id="tocBtn">목차</button><button class="btn primary" onclick="window.print()">PDF 저장</button></div></header>
 <aside class="sidepanel" id="toc"><h3>Contents <button class="btn" style="float:right" onclick="toggleToc()">닫기</button></h3><div id="tocList"></div><p class="note">← → 방향키 또는 하단 버튼으로 이동 · URL의 #page-번호를 공유하면 특정 장표부터 열립니다.</p></aside>
